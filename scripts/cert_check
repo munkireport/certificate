@@ -11,7 +11,8 @@ set -e
 
 CERTSPATHS=(/etc/certificates/ /etc/letsencrypt/live/*/)
 SYSTEM_KEYCHAIN="/Library/Keychains/System.keychain"
-OUT="/usr/local/munki/preflight.d/cache/certificate.txt"
+DIR=$(dirname $0)
+OUT="$DIR/cache/certificate.txt"
 SEP="	" # Seperator
 
 # Set LANG to english for the date command to work correctly
