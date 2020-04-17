@@ -90,6 +90,8 @@ class Certificate_model extends \Model
                     }
                     if (preg_match('/CN = ([^,|\n]+)/', $parts[3], $matches)) {
                         $this->issuer = $matches[1];
+                    } elseif (preg_match('/O = ([^,|\n]+)/', $parts[3], $matches)) {
+                        $this->issuer = $matches[1];                   
                     } else {
                         $this->issuer = 'Unknown';
                     }
