@@ -17,14 +17,14 @@
 		        <th data-i18n="certificate.expires" data-colname='certificate.cert_exp_time'></th>
 		        <th data-i18n="certificate.expiration_date" data-colname='certificate.cert_exp_time'></th>
 		        <th data-i18n="certificate.issuer" data-colname='certificate.issuer'></th>
-                <th data-i18n="certificate.location" data-colname='certificate.cert_location'></th>
-				<th data-i18n="listing.checkin" data-colname='reportdata.timestamp'></th>
+		        <th data-i18n="certificate.location" data-colname='certificate.cert_location'></th>
+		        <th data-i18n="listing.checkin" data-colname='reportdata.timestamp'></th>
 		      </tr>
 		    </thead>
 		    <tbody>
-		    	<tr>
-					<td data-i18n="listing.loading" colspan="6" class="dataTables_empty"></td>
-				</tr>
+		        <tr>
+		          <td data-i18n="listing.loading" colspan="8" class="dataTables_empty"></td>
+		        </tr>
 		    </tbody>
 		  </table>
     </div> <!-- /span 13 -->
@@ -107,7 +107,7 @@
 	    // Use hash as searchquery
 	    if(window.location.hash.substring(1))
 	    {
-			oTable.fnFilter( decodeURIComponent(window.location.hash.substring(1)) );
+		oTable.fnFilter( decodeURIComponent(window.location.hash.substring(1)) );
 	    }
 
 	} );

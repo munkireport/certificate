@@ -13,7 +13,7 @@
     </thead>
     <tbody>
         <tr>
-            <td colspan="2" data-i18n="listing.loading"></td>
+            <td colspan="5" data-i18n="listing.loading"></td>
         </tr>
     </tbody>
 </table>
