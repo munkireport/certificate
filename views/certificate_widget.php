@@ -1,12 +1,11 @@
 <div class="col-lg-4 col-md-6">
-    <div class="panel panel-default" id="certificate-expiration-widget">
-        <div class="panel-heading" data-container="body" title="">
-            <h3 class="panel-title"><i class="fa fa-certificate"></i>
-                <span data-i18n="certificate.title"></span>
-                <list-link data-url="show/listing/certificate/certificate"></list-link>
-            </h3>
+    <div class="card" id="certificate-expiration-widget">
+        <div class="card-header" data-container="body" title="">
+            <i class="fa fa-certificate"></i>
+            <span data-i18n="certificate.title"></span>
+            <a href="show/listing/certificate/certificate" class="pull-right"><i class="fa fa-list"></i></a>
         </div>
-		<div class="panel-body text-center"></div>
+		<div class="card-body text-center"></div>
     </div><!-- /panel -->
 </div><!-- /col -->
 
@@ -20,7 +19,7 @@ $(document).on('appUpdate', function(e, lang) {
     		return;
     	}
 		
-		var panel = $('#certificate-expiration-widget div.panel-body'),
+		var panel = $('#certificate-expiration-widget div.card-body'),
 			baseUrl = appUrl + '/show/listing/certificate/certificate';
 		panel.empty();
 
