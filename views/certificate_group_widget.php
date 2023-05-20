@@ -1,4 +1,4 @@
-	<div class="col-lg-4 col-md-6">
+<div class="col-lg-4 col-md-6">
 	<div class="card" id="certificate-group-widget">
 		<div class="card-header" data-container="body" >
 			<i class="fa fa-certificate"></i>
@@ -6,7 +6,7 @@
             <a href="/show/listing/certificate/certificate" class="pull-right"><i class="fa fa-list"></i></a>
 		</div>
 		<div class="list-group scroll-box"></div>
-	</div><!-- /panel -->
+	</div><!-- /card -->
 </div><!-- /col -->
 
 <script>

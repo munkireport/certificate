@@ -6,7 +6,7 @@
             <a href="show/listing/certificate/certificate" class="pull-right"><i class="fa fa-list"></i></a>
         </div>
 		<div class="card-body text-center"></div>
-    </div><!-- /panel -->
+    </div><!-- /card -->
 </div><!-- /col -->
 
 <script>

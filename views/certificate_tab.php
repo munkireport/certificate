@@ -1,6 +1,5 @@
 <h2 data-i18n="certificate.title"></h2>
 
-
 <table id="cert-table" class="table table-condensed table-striped">
     <thead>
         <tr>

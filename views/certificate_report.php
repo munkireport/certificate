@@ -5,14 +5,12 @@
 )); ?>
 
 <div class="container">
-
   <div class="row">
 
 	  <?php $widget->view($this, 'certificate'); ?>
 	  <?php $widget->view($this, 'certificate_group'); ?>
 
   </div> <!-- /row -->
-
 </div>  <!-- /container -->
 
 <script src="<?php echo conf('subdirectory'); ?>assets/js/munkireport.autoupdate.js"></script>
