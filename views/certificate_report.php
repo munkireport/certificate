@@ -4,12 +4,10 @@
 	)
 )); ?>
 
-<div class="container">
-  <div class="row">
-
+<div class="container-fluid">
+  <div class="row pt-4">
 	  <?php $widget->view($this, 'certificate'); ?>
 	  <?php $widget->view($this, 'certificate_group'); ?>
-
   </div> <!-- /row -->
 </div>  <!-- /container -->
 
