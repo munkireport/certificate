@@ -1,7 +1,7 @@
 {
     "cert_groups": "Certificates by Name",
     "commonname": "Common Name",
-    "expired": "Expired",
+    "expired": "Expired certificate",
     "expire_warning": "Expiring soon",
     "expiration_date": "Expiration Date",
     "expires": "Expires",
