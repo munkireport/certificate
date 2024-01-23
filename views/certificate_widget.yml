@@ -1,0 +1,20 @@
+type: button
+widget_id: certificate-expiration-widget
+api_url: /module/certificate/get_stats
+i18n_title: certificate.title
+icon: fa-certificate
+listing_link: /show/listing/certificate/certificate
+i18n_empty_result: certificate.nocertificate
+buttons:
+  - label: expired
+    i18n_label: certificate.expired
+    class: btn-danger 
+    hide_when_zero: True
+  - label: soon
+    i18n_label: certificate.soon
+    class: btn-warning
+    hide_when_zero: True
+  - label: ok
+    i18n_label: certificate.ok
+    class: btn-success
+    hide_when_zero: True

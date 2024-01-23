@@ -1,6 +1,5 @@
 <h2 data-i18n="certificate.title"></h2>
 
-
 <table id="cert-table" class="table table-condensed table-striped">
     <thead>
         <tr>
@@ -20,13 +19,14 @@
 
 <script>
 
-
 $(document).on('appReady', function(e, lang) {
 
     // Get certificate data
     $.getJSON( appUrl + '/module/certificate/get_data/' + serialNumber, function( data ) {
-        if(data.length)
-        {
+        if(data.length){
+            // Update the tab badge count
+            $('#certificate-cnt').text(data.length);
+
             var tbl = $('#cert-table tbody');
 
             tbl.empty();
@@ -50,9 +50,9 @@ $(document).on('appReady', function(e, lang) {
                             return moment(date).format('LLLL');
                             }))
                     .append($('<td>')
-                        .text(cert.rs.issuer))                        
+                        .text(cert.rs.issuer))
                     .append($('<td>')
-                        .text(cert.rs.cert_location)));   
+                        .text(cert.rs.cert_location)));
             });
 
             // Add tooltips

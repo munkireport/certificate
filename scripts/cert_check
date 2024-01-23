@@ -11,7 +11,7 @@ set -e
 
 CERTSPATHS=(/etc/certificates/ /etc/letsencrypt/live/*/)
 SYSTEM_KEYCHAIN="/Library/Keychains/System.keychain"
-DIR=$(dirname $0)
+DIR=$(/usr/bin/dirname $0)
 OUT="$DIR/cache/certificate.txt"
 SEP="	" # Seperator
 
@@ -21,7 +21,7 @@ export LANG=en_EN.UTF-8
 # Create certificate out file directory and file if it doesn't exist
 if [[ ! -f "${OUT}" ]]
 then
-	mkdir -p $(dirname "${OUT}") && touch "${OUT}"
+	/bin/mkdir -p $(/usr/bin/dirname "${OUT}") && /usr/bin/touch "${OUT}"
 fi
 
 # Truncate out file
@@ -34,27 +34,27 @@ do
     # Check if the directory exists, need to use ls since paths may contain wildcards that -d doesn't expand 
     if [[ -d "${CERTSPATH}" ]]
     then
-        for CERT in $(ls "${CERTSPATH}"*cert.pem)
+        for CERT in $(/bin/ls "${CERTSPATH}"*cert.pem)
         do
             # Don't report on standard Apple certs that are not admin controlled
             if [[ "$CERT" != *"com.apple"* ]] && [[ "$CERT" != *"Apple"* ]] && [[ "$CERT" != *"Server Fallback SSL Certificate"* ]]
             then     
                 # get pathname to specific cert file for reporting
-                CERTFILEPATH=$(dirname "$CERT")
+                CERTFILEPATH=$(/usr/bin/dirname "$CERT")
                 # read the dates on each certificate
-                ENDDATE=$(openssl x509 -noout -in "${CERT}" -enddate 2>/dev/null)
+                ENDDATE=$(/usr/bin/openssl x509 -noout -in "${CERT}" -enddate 2>/dev/null)
                 # read subject on each certificate 
-                SUBJECT=$(openssl x509 -noout -in "${CERT}" -subject -nameopt oneline 2>/dev/null)
+                SUBJECT=$(/usr/bin/openssl x509 -noout -in "${CERT}" -subject -nameopt oneline 2>/dev/null)
                 # read issuer info on each certificate
-                ISSUER=$(openssl x509 -noout -in "${CERT}" -issuer -nameopt oneline -noout 2>/dev/null)
+                ISSUER=$(/usr/bin/openssl x509 -noout -in "${CERT}" -issuer -nameopt oneline -noout 2>/dev/null)
                 if [[ -z "$ENDDATE" ]]
                 then
                     # this cert could not be read.
                     printf "INFO - $CERT could not be loaded by openssl\n"
                 else
                     # Remove "notAfter=" from ENDDATE variable for reporting
-                    NOTAFTER=`echo $ENDDATE | awk -F notAfter= '{print $NF}'`
-                    EXPIRYDATE=$(date -j -f "%b %e %T %Y %Z" "$NOTAFTER" "+%s")
+                    NOTAFTER=$(echo $ENDDATE | /usr/bin/awk -F notAfter= '{print $NF}')
+                    EXPIRYDATE=$(/bin/date -j -f "%b %e %T %Y %Z" "$NOTAFTER" "+%s")
                     echo "${EXPIRYDATE}${SEP}${CERT}${SEP}${SUBJECT}${SEP}${ISSUER}${SEP}${CERTFILEPATH}" >> "${OUT}"
                 fi
             fi
@@ -65,9 +65,9 @@ done
 
 # Parse non-Apple certificates in Keychain
 IFS=","
-for CERT in $(/usr/bin/security find-certificate -a -p -Z "$SYSTEM_KEYCHAIN" | sed s/"-----END CERTIFICATE-----"/"-----END CERTIFICATE-----,"/g)
+for CERT in $(/usr/bin/security find-certificate -a -p -Z "$SYSTEM_KEYCHAIN" | /usr/bin/sed s/"-----END CERTIFICATE-----"/"-----END CERTIFICATE-----,"/g)
 do
-    CN=$(/usr/bin/openssl x509 -noout -subject -nameopt multiline <<< $CERT | grep commonName | sed -n 's/ *commonName *= //p' 2>/dev/null)
+    CN=$(/usr/bin/openssl x509 -noout -subject -nameopt multiline <<< $CERT | /usr/bin/grep commonName | /usr/bin/sed -n 's/ *commonName *= //p' 2>/dev/null)
     if [[ "$CN" != "com.apple"* ]] && [[ "$CN" != *"Apple"* ]]  && [[ "$CN" != *"Server Fallback SSL Certificate"* ]] && [[ "$CN" != "Software Signing" ]] && [[ "$CN" != "Dashboard Advisory" ]]
     then     
         # read the subject on each certificate
@@ -78,8 +78,8 @@ do
             # this cert could not be read.
             printf "INFO - $CERT could not be loaded by openssl\n"
         else
-            NOTAFTER=$(/usr/bin/openssl x509 -noout -enddate <<< $CERT | cut -d= -f2 2>/dev/null)
-            EXPIRYDATE=$(date -j -f "%b %e %T %Y %Z" "$NOTAFTER" "+%s")
+            NOTAFTER=$(/usr/bin/openssl x509 -noout -enddate <<< $CERT | /usr/bin/cut -d= -f2 2>/dev/null)
+            EXPIRYDATE=$(/bin/date -j -f "%b %e %T %Y %Z" "$NOTAFTER" "+%s")
                 echo "${EXPIRYDATE}${SEP}${CN}${SEP}${SUBJECT}${SEP}${ISSUER}${SEP}${SYSTEM_KEYCHAIN}" >> "${OUT}"
         fi
     fi

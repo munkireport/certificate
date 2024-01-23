@@ -8,10 +8,10 @@
     "ok": "1 Month +",
     "issuer": "Issuer",
     "location": "Location",
-    "nocertificate": "No Certificate",
+    "nocertificate": "No Certificates",
     "report_title": "Certificate Report",
     "soon": "< 1 Month",
-    "multiple_errors": "Multiple errors",
-    "multiple_warnings": "Multiple warnings",
+    "multiple_errors": "Multiple certificate errors",
+    "multiple_warnings": "Multiple certificate warnings",
     "title": "Certificates"
 }

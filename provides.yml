@@ -1,0 +1,18 @@
+client_tabs:
+    certificate-tab:
+        view: certificate_tab
+        i18n: certificate.title
+        badge: certificate-cnt
+listings:
+    certificate:
+        view: certificate_listing
+        i18n: certificate.title
+reports:
+    certificate:
+        view: certificate_report
+        i18n: certificate.report_title
+widgets:
+    certificate:
+        view: certificate_widget
+    certificate_group:
+        view: certificate_group_widget

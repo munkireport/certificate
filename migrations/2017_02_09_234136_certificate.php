@@ -59,7 +59,7 @@ class Certificate extends Migration
             $table->index('issuer');
         });
     }
-    
+
     public function down()
     {
         $capsule = new Capsule();

@@ -11,7 +11,7 @@ class CertificateNullColumns extends Migration
     public function up()
     {
         $capsule = new Capsule();
-        
+
         $capsule::schema()->table($this->tableName, function (Blueprint $table) {
               $table->bigInteger('cert_exp_time')->nullable()->change();
               $table->string('cert_path')->nullable()->change();
@@ -23,6 +23,6 @@ class CertificateNullColumns extends Migration
 
     public function down()
     {
-        
+        // There is no going back
     }
 }

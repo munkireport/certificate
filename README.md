@@ -3,7 +3,8 @@ Certificate module
 
 Provides certificate information on certs found in `/etc/certificates/` and the System Keychain.
 
-The table provides the following information per 'certificate':
+Table Schema
+-----
 
 * id (int) Unique id
 * serial_number (string) Serial Number

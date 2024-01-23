@@ -1,10 +1,9 @@
 <?php
 class Certificate_model extends \Model
 {
-    
     public function __construct($serial = '')
     {
-        parent::__construct('id', 'certificate'); //primary key, tablename
+        parent::__construct('id', 'certificate'); // Primary key, tablename
         $this->rs['id'] = '';
         $this->rs['serial_number'] = $serial;
         $this->rs['cert_exp_time'] = 0; // Unix timestamp of expiration time
@@ -12,45 +11,6 @@ class Certificate_model extends \Model
         $this->rs['cert_cn'] = ''; // Common name
         $this->rs['issuer'] = ''; //Certificate issuer
         $this->rs['cert_location'] = ''; //Certificate location
-    }
-
-     public function get_certificates()
-     {
-        $out = array();
-        $sql = "SELECT cert_cn, COUNT(1) AS count
-                FROM certificate
-		LEFT JOIN reportdata USING (serial_number)
-		".get_machine_group_filter()."
-                GROUP BY cert_cn
-                ORDER BY COUNT DESC";
-        
-        foreach ($this->query($sql) as $obj) {
-            if ("$obj->count" !== "0") {
-                $obj->cert_cn = $obj->cert_cn ? $obj->cert_cn : 'Unknown';
-                $out[] = $obj;
-            }
-        }
-        return $out;
-     }
-	
-    /**
-     * Get statistics
-     *
-     * @return void
-     * @author
-     **/
-    public function get_stats()
-    {
-        $now = time();
-        $one_month = $now + 3600 * 24 * 30 * 1;
-        $sql = "SELECT COUNT(1) as total, 
-			COUNT(CASE WHEN cert_exp_time < '$now' THEN 1 END) AS expired, 
-			COUNT(CASE WHEN cert_exp_time BETWEEN $now AND $one_month THEN 1 END) AS soon,
-			COUNT(CASE WHEN cert_exp_time > $one_month THEN 1 END) AS ok
-			FROM certificate
-			LEFT JOIN reportdata USING (serial_number)
-			".get_machine_group_filter();
-        return current($this->query($sql));
     }
 
     // ------------------------------------------------------------------------
@@ -91,17 +51,17 @@ class Certificate_model extends \Model
                     if (preg_match('/CN = ([^,|\n]+)/', $parts[3], $matches)) {
                         $this->issuer = $matches[1];
                     } elseif (preg_match('/O = ([^,|\n]+)/', $parts[3], $matches)) {
-                        $this->issuer = $matches[1];                   
+                        $this->issuer = $matches[1];
                     } else {
                         $this->issuer = 'Unknown';
                     }
-                    
+
                     $this->cert_location = $parts[4];
 
                     $this->id = '';
                     $this->timestamp = time();
                     $this->create();
-                    
+
                     // Check for errors
                     if ($this->cert_exp_time < $now) {
                         $errors[] = array(
@@ -125,7 +85,7 @@ class Certificate_model extends \Model
                 }
             }
         }// end foreach()
-        
+
         if (! $errors) {
             $this->delete_event();
         } else {
@@ -149,7 +109,7 @@ class Certificate_model extends \Model
                 }
                 // If errors, ignore warnings
                 if ($error_count) {
-                    $type = 'error';
+                    $type = 'danger';
                     if ($error_count == 1) {
                         $msg = $last_error['msg'];
                         $data = $last_error['data'];

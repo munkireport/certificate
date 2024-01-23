@@ -1,0 +1,8 @@
+type: scrollbox
+widget_id: certificate-group-widget
+api_url: /module/certificate/get_certificates
+i18n_title: certificate.cert_groups
+icon: fa-certificate
+listing_link: /show/listing/certificate/certificate
+search_key: cert_cn
+i18n_empty_result: certificate.nocertificate

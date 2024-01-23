@@ -43,33 +43,47 @@ class Certificate_controller extends Module_controller
     }
 
     /**
-     * Get stats
+     * Get stats for button widget
      *
      **/
     public function get_stats()
     {
-        $obj = new View();
+        $now = time();
+        $one_month = $now + 3600 * 24 * 30 * 1;
+        $sql = "SELECT COUNT(1) as total,
+                        COUNT(CASE WHEN `cert_exp_time` < '$now' THEN 1 END) AS 'expired', 
+                        COUNT(CASE WHEN `cert_exp_time` BETWEEN '$now' AND '$one_month' THEN 1 END) AS 'soon',
+                        COUNT(CASE WHEN `cert_exp_time` > '$one_month' THEN 1 END) AS 'ok'
+                        from certificate
+                        LEFT JOIN reportdata USING (serial_number)
+                        WHERE ".get_machine_group_filter('');
 
-        if (! $this->authorized()) {
-            $obj->view('json', array('msg' => 'Not authorized'));
-            return;
+        $out = [];
+        $queryobj = new Certificate_model();
+        foreach($queryobj->query($sql)[0] as $label => $value){
+                $out[] = ['label' => $label, 'count' => $value];
         }
 
-        $cert = new Certificate_model;
-        $obj->view('json', array('msg' => $cert->get_stats()));
+        jsonView($out);
     }
-    
-         public function get_certificates()
-     {
-        $obj = new View();
 
-        if (! $this->authorized()) {
-            $obj->view('json', array('msg' => array('error' => 'Not authenticated')));
-            return;
-        }
-        
-        $certificate = new Certificate_model;
-        $obj->view('json', array('msg' => $certificate->get_certificates()));
+
+    /**
+     * Get stats for scroll widget
+     *
+     **/
+    public function get_certificates()
+     {
+
+        $sql = "SELECT cert_cn, COUNT(1) AS count
+                FROM certificate
+                LEFT JOIN reportdata USING (serial_number)
+                ".get_machine_group_filter()."
+                GROUP BY cert_cn
+                ORDER BY COUNT DESC";
+
+        $queryobj = new Macos_security_compliance_model;
+        jsonView($queryobj->query($sql));
      }
 
 } // END class Certificate_controller

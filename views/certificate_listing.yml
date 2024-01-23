@@ -1,0 +1,16 @@
+i18n_title: certificate.title
+js_link: module/certificate/js/certificate
+not_null_column: certificate.id
+table:
+  - column: machine.computer_name
+    i18n_header: listing.computername
+    formatter: clientDetail
+    tab_link: certificate-tab
+  - column: reportdata.serial_number
+    i18n_header: serial
+  - {i18n_header: certificate.commonname, column: certificate.cert_cn}
+  - {i18n_header: certificate.expires, column: certificate.cert_exp_time, formatter: format_certificate_relative_expiration_date}
+  - {i18n_header: certificate.expiration_date, column: certificate.cert_exp_time, formatter: format_certificate_expiration_date}
+  - {i18n_header: certificate.issuer, column: certificate.issuer}
+  - {i18n_header: certificate.location, column: certificate.cert_location}
+  - {i18n_header: certificate.checkin, column: reportdata.timestamp, formatter: timestampToMoment}
