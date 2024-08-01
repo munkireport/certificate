@@ -82,7 +82,7 @@ class Certificate_controller extends Module_controller
                 GROUP BY cert_cn
                 ORDER BY COUNT DESC";
 
-        $queryobj = new Macos_security_compliance_model;
+        $queryobj = new Certificate_model;
         jsonView($queryobj->query($sql));
      }
 
