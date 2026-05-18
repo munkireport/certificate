@@ -13,4 +13,4 @@ table:
   - {i18n_header: certificate.expiration_date, column: certificate.cert_exp_time, formatter: format_certificate_expiration_date}
   - {i18n_header: certificate.issuer, column: certificate.issuer}
   - {i18n_header: certificate.location, column: certificate.cert_location}
-  - {i18n_header: certificate.checkin, column: reportdata.timestamp, formatter: timestampToMoment}
+  - {i18n_header: listing.checkin, column: reportdata.timestamp, formatter: timestampToMoment}
